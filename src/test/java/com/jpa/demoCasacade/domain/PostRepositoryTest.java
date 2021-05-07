@@ -91,15 +91,13 @@ class PostRepositoryTest {
     }
 
 
-    @DisplayName ("Comment 에서 Casacade.PERSIST 를 걸어 저장한다.")
+    @DisplayName ("기존에 있는 Post에 새롭게 댓글을 추가한다.")
     @Test
     void Comment_쪽에서_Casacade_적용  () {
+        // postRepository.save ( post );
         Post savedPost = postRepository.findPostUseFetchJoin ( 1L );
-        assertThat ( savedPost.getId () ).isEqualTo ( 1L );
-        comment.createRelationWithPost ( savedPost );
-        commentRepository.save ( comment );
+        assertThat ( savedPost.getTitle () ).isEqualTo ( post.getTitle () );
 
-        assertThat ( commentRepository.findAll ().size ()).isEqualTo ( 4 );
     }
 
     @DisplayName ("comment 에서 삭제 요청 하면 POST도 지워진다.")
